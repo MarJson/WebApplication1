@@ -1,0 +1,197 @@
+﻿@using WebApplication1.Model
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <link rel="shortcut icon" type="image/x-jpg" href="~/Images/title.png" />
+    <link href="~/Content/menu.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上海汇众追溯系统</title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+<style>
+/* 下拉按钮样式 */
+    .dropbtn {
+        background-color:black;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* 容器 <div> - 需要定位下拉内容 */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    /* 下拉内容 (默认隐藏) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+
+    /* 下拉菜单的链接 */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    /* 鼠标移上去后修改下拉菜单链接颜色 */
+    .dropdown-content a:hover {background-color: #f1f1f1}
+
+    /* 在鼠标移上去后显示下拉菜单 */
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* 当下拉内容显示后修改下拉按钮的背景颜色 */
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+</style>
+
+
+
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background: black">
+        <div class="container">
+            <div class="navbar-header" style="float: left;width: 12%">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @Html.ActionLink("HZDataSys", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div style="float: left; width: 8%;background: black ">
+                <div class="dropdown" style="float:left ">
+                    <button class="dropbtn">  <a href="../Home/Index" style="text-decoration:none;"><font style="color: white">首页</font></a></button>
+                   
+                </div>
+            </div>
+            <div style="float: left; width: 12%;">
+                <div class="dropdown" style="float: left;">
+                    <button class="dropbtn" style="background:" >总成查询</button>
+                    <div class="dropdown-content">
+                        @foreach (var item in Session["lines"] as  List<AreaDto>)
+                        {
+                            <a href="../AssemblySearch/Index?Area=@item.Area">@item.DesCribe</a>
+                          
+                        }
+                      
+                        
+
+                    </div>
+     
+                </div>
+            </div>
+      
+
+            <div style="float: left; width: 12%;background: black ">
+                <div class="dropdown" style="float:left ">
+                    <button class="dropbtn"  >模糊查询</button>
+                    <div class="dropdown-content">
+                        @foreach (var item in Session["lines"] as  List<AreaDto>)
+                        {
+                            <a href="../AssemblySearch/DarkSearch?Area=@item.Area">@item.DesCribe</a>
+                          
+                        }
+                    </div>
+     
+                </div>
+            </div>
+            
+            <div style="float: left; width: 12%; background: black ">
+                <div class="dropdown" style="float:left ">
+                    <button class="dropbtn"  >逆向查询</button>
+                    <div class="dropdown-content">
+                        @foreach (var item in Session["lines"] as  List<AreaDto>)
+                        {
+                            <a href="../InverseQuery/Index?Area?Area=@item.Area">@item.DesCribe</a>
+                          
+                        }
+                    </div>
+     
+                </div>
+            </div>
+
+            <div style="float: left;width: 12%;background: black ">
+                <div class="dropdown" style="float:left ">
+                    <button class="dropbtn"  >QC查询</button>
+                    <div class="dropdown-content">
+                        @foreach (var item in Session["lines"] as List<AreaDto>)
+                        {
+                            <a href="../QCSelect/Index?Area=@item.Area">@item.DesCribe</a>
+
+                        }
+                    </div>
+     
+                </div>
+            </div>
+
+            <div style="float: left;width: 12%; background: black">
+                <div class="dropdown" style="float:left ">
+                    <button class="dropbtn"  >图表查询</button>
+                    <div class="dropdown-content">
+                        @foreach (var item in Session["lines"] as  List<AreaDto>)
+                        {
+                            <a href="../ChartShow/Index?Area=@item.Area">@item.DesCribe</a>
+                          
+                        }
+                    </div>
+     
+                </div>
+            </div>
+            
+            
+
+
+            <div class="navbar-collapse collapse">
+             
+
+                    @*<li>@Html.ActionLink("主页", "Index", "Home")</li>
+                    <li>@Html.ActionLink("总成查询", "About", "Home")</li>
+                    <li>@Html.ActionLink("总成条码", "About", "Home")</li>
+                    <li>@Html.ActionLink("逆向查询", "About", "Home")</li>
+                    <li>@Html.ActionLink("QC查询", "About", "Home")</li>
+                    <li>@Html.ActionLink("图标查询", "About", "Home")</li>
+                    <li>@Html.ActionLink("关于", "About", "Home")</li>
+                    <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>*@
+               
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p style="color: black">&copy; @DateTime.Now.Year - GCTH MES查询系统</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
