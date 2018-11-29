@@ -50,7 +50,7 @@ namespace WebApplication1.Controllers
                     totalcount = list.Count,
                     success = Successed,
                     mess = Message
-                }, JsonRequestBehavior.AllowGet);
+                }, JsonRequestBehavior.AllowGet);//
             }
             return View();
         }
