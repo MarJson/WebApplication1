@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
             using (IDbConnection conn = DapperService.MySqlConnection())
             {
                 var list = conn.Query<AreaDto>("SP_Area_QueryList", commandType: CommandType.StoredProcedure).ToList();
-                CommonHelp.list = list;////
+                CommonHelp.list = list;//
                // Session["lines"] = list;
                 ViewBag.date = DateTime.Now;
           
