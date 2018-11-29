@@ -23,6 +23,7 @@ namespace WebApplication1.Controllers
                 ViewBag.Line = CommonHelp.list;
                 if (PageIndex == null && model.StartTime < model.EndTime && !string.IsNullOrEmpty(model.Area))
                 {
+                  
                     model.EndTime = Convert.ToDateTime(model.EndTime);
                     model.StartTime = Convert.ToDateTime(model.StartTime);
                     model.Area = model.Area;

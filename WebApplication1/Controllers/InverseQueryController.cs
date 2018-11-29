@@ -26,6 +26,7 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
+                    
                     list = DapperService.SqlHelp.GetAssemblyByPartCode(code, area);
                     var checkcount = list.First().COUNT;
                     if (checkcount>0)
