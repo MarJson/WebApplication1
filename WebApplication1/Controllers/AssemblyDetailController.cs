@@ -53,12 +53,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-
-
-
-
-
-
         /// <summary>
         /// 根据条码查询扭矩
         /// </summary>
