@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{5EBC1904-A3C9-4230-AA51-3F0FFA095EE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HZSysWeb", "WebApplication1\HZSysWeb.csproj", "{5EBC1904-A3C9-4230-AA51-3F0FFA095EE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BufferMemory", "BufferMemory\BufferMemory.csproj", "{E419A754-A6B3-4FB4-AA18-628C1F328A80}"
 EndProject

@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
                 {
                     
                     list = DapperService.SqlHelp.GetAssemblyByPartCode(code, area);
-                    var checkcount = list.First().COUNT;
+                    var checkcount = list.First().COUNT; 
                     if (checkcount>0)
                     {
                         Successed = false;
@@ -50,7 +50,7 @@ namespace WebApplication1.Controllers
                     totalcount = list.Count,
                     success = Successed,
                     mess = Message
-                }, JsonRequestBehavior.AllowGet);//
+                }, JsonRequestBehavior.AllowGet);
             }
             return View();
         }

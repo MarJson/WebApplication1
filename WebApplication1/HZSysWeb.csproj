@@ -244,7 +244,9 @@
     <Compile Include="Controllers\InverseQueryController.cs" />
     <Compile Include="Controllers\NeedDeleyCarController.cs" />
     <Compile Include="Controllers\PdfViewController.cs" />
+    <Compile Include="Controllers\PowerController.cs" />
     <Compile Include="Controllers\QCSelectController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ScanRateController.cs" />
     <Compile Include="Controllers\SelectCheckNewController.cs" />
     <Compile Include="Controllers\SignController.cs" />
@@ -280,6 +282,8 @@
     <Compile Include="Model\Dto\ByCodeDto.cs" />
     <Compile Include="Model\Dto\ByDataDto.cs" />
     <Compile Include="Model\Dto\ChartDataDto.cs" />
+    <Compile Include="Model\Dto\FunctionDto.cs" />
+    <Compile Include="Model\Dto\FunctionSimpleInfo.cs" />
     <Compile Include="Model\Dto\PartDataDto.cs" />
     <Compile Include="Model\Dto\PartDetailToExcelDto.cs" />
     <Compile Include="Model\Dto\PartToExcelDto.cs" />
@@ -296,9 +300,14 @@
     <Compile Include="Model\Dto\ResScnRateDto.cs" />
     <Compile Include="Model\Dto\ResStationDto.cs" />
     <Compile Include="Model\Dto\ResThroughDataDto.cs" />
+    <Compile Include="Model\Dto\RoleFunctionDto.cs" />
+    <Compile Include="Model\Dto\RolesDto.cs" />
+    <Compile Include="Model\Dto\SonFunctionDto.cs" />
     <Compile Include="Model\Dto\ThroughRateDto.cs" />
     <Compile Include="Model\Dto\TorqToExcelDto.cs" />
     <Compile Include="Model\Dto\UserDto.cs" />
+    <Compile Include="Model\Dto\UserRoles.cs" />
+    <Compile Include="Model\Dto\UsersDto.cs" />
     <Compile Include="Model\ForAssemblyModel.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\PartDataModel.cs" />
@@ -306,6 +315,7 @@
     <Compile Include="Model\PageInfoModel.cs" />
     <Compile Include="Model\ResDto.cs" />
     <Compile Include="Model\ResExportDto.cs" />
+    <Compile Include="Model\ResUsersRoleMode.cs" />
     <Compile Include="Model\ThroughRateModel.cs" />
     <Compile Include="Model\ToExcelModel.cs" />
     <Compile Include="Model\ToExecelModel.cs" />
@@ -608,6 +618,13 @@
     <Content Include="Views\GetPartByDate\Index.cshtml" />
     <Content Include="Views\ScanRate\Index.cshtml" />
     <Content Include="Views\NeedDeleyCar\Index.cshtml" />
+    <Content Include="Views\UserManage\Index.cshtml" />
+    <Content Include="Views\UserManage\Create.cshtml" />
+    <Content Include="Views\UserManage\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Power\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -615,7 +632,6 @@
     <Folder Include="Views\DataSource\" />
     <Folder Include="Views\TestExcel\" />
     <Folder Include="Views\ToExecel\" />
-    <Folder Include="Views\UserManage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
