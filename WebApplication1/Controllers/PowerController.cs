@@ -39,24 +39,26 @@ namespace WebApplication1.Controllers
             return View(list);
         }
         [HttpPost]
-       
-        //public ActionResult GetRolePermission(Guid id)
-        //{
-        //   // Role r = irole.GetByKey(id);
-        //   // List<string> fids = r.Function.Select(p => p.Id).ToList();
-        //   // return Json(new { r = fids });
-        //}
-       // [HttpPost]
-     
+
+        public ActionResult GetRolePermission(string id)
+        {
+           //Role r = irole.GetByKey(id);
+            
+            List<string> fids = RoleFunction.Entity().Where(p => p.RoleId.Equals(id)).Select(p => p.FunctionID).ToList();
+            return Json(new { r = fids });
+        }
+        [HttpPost]
+
         public ActionResult SetPermission(FormCollection coll)
         {
             OperationResult r = new OperationResult();
+            RoleFunctionDto model=new RoleFunctionDto();
             try
             {
-                Guid rid = coll["role"].ToString().Split(',')[0].CastTo<Guid>();
-               // irole.SetPermission(coll["function"] == null ? "" : coll["function"].ToString(), rid);
+                model.RoleId = coll["role"].ToString().Split(',')[0].CastTo<Guid>().ToString();
+                model.FunctionID = coll["function"] == null ? "" : coll["function"].ToString();
+                RoleFunction.insert(model);
                 r.ResultType = OperationResultType.Success;
-               // PermissionHelper.ClearPermissionDic();
             }
             catch
             {

@@ -14,7 +14,6 @@ namespace WebApplication1.Controllers
     public class InverseQueryController : Controller
     {
         // GET: InverseQuery
-       
         public ActionResult Index(string code,string area)
         {
             ViewBag.Line = CommonHelp.list;

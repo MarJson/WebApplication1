@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Transactions;
 using WebApplication1.Common;
 using WebApplication1.Model;
 using WebApplication1.Model.Dto;
-
+using Zhongyu.Data.Extensions;
 namespace WebApplication1.Models
 {
     public class DapperService
@@ -141,7 +142,7 @@ namespace WebApplication1.Models
                     try
                     {
                         result = conn.Execute(
-                            "update sysuser set Id=@Id,LonginName=@LonginName,Password=@Password,Name=@Name,Phone=@Phone,Enable=@Enable where Id=@Id",
+                            "update sysuser set Id=@Id,LoginName=@LoginName,Password=@Password,Name=@Name,Phone=@Phone,Enable=@Enable where Id=@Id",
                             user);
                         if (!string.IsNullOrWhiteSpace(role))
                         {
@@ -235,23 +236,17 @@ namespace WebApplication1.Models
             /// </summary>
             /// <param name="model"></param>
             /// <returns></returns>
-            public static UserDto UserLogin(string username, string password)
+            public static LoginUser UserLogin(string username, string password)
             {
-
-                UserDto user;
                 using (IDbConnection conn = MySqlConnection())
                 {
                     var p = new DynamicParameters();
                     p.Add("@UserName", username);
                     p.Add("@PassWord", password);
-                    //var user1= conn.Query("select user_name,password,userid from user where user_name=@UserName and password=@PassWord", p, commandType: CommandType.Text, commandTimeout: 0).ToList().FirstOrDefault();
-                    user = conn.Query<UserDto>(
-                        "select user_name,password,userid from user where user_name=@UserName and password=@PassWord",
+                    return conn.Query<LoginUser>(
+                        "select * from sysuser where LoginName=@UserName and Password=@PassWord",
                         p, commandType: CommandType.Text, commandTimeout: 0).ToList().FirstOrDefault();
-
                 }
-
-                return user;
             }
 
             /// <summary>
@@ -781,10 +776,9 @@ namespace WebApplication1.Models
                 }
             }
 
-            //获取当前用户
+            //获取角色
             public static RolesDto GetById(string Id)
             {
-
                 using (IDbConnection conn = MySqlConnection())
                 {
                     var p = new DynamicParameters();
@@ -792,9 +786,7 @@ namespace WebApplication1.Models
                     return conn.Query<RolesDto>("select* from role where Id=@Id", p, commandType: CommandType.Text,
                         commandTimeout: 0).FirstOrDefault();
                 }
-
             }
-
             //删除
             public static int Delete(string Id)
             {
@@ -809,7 +801,6 @@ namespace WebApplication1.Models
             }
 
         }
-
         //用户角色管理
         public static class RoleUser
         {
@@ -862,11 +853,11 @@ namespace WebApplication1.Models
         public static class Function
         {
             //查询所有功能
-            public static List<FunctionDto> GetFunction()
+            public static List<ResFunctionDto> GetFunction()
             {
                 using (IDbConnection conn = MySqlConnection())
                 {
-                    return conn.Query<FunctionDto>("select * from function", commandType: CommandType.Text,commandTimeout: 0).ToList();
+                    return conn.Query<ResFunctionDto>("select * from function", commandType: CommandType.Text,commandTimeout: 0).ToList();
                 }
             }
         }
@@ -880,6 +871,26 @@ namespace WebApplication1.Models
                     return conn.Query<SonFunctionDto>("select * from sonfunction", commandType: CommandType.Text, commandTimeout: 0).ToList();
                 }
             }
+            public static SonFunctionDto GetById(string Id)
+            {
+                try
+                {
+                    using (IDbConnection conn = MySqlConnection())
+                    {
+                        var p = new DynamicParameters();
+                        p.Add("@Id", Id);
+                        var tt= conn.Query<SonFunctionDto>("select * from sonfunction where SonFunctionId=@Id",p,commandType: CommandType.Text, commandTimeout: 0).FirstOrDefault();
+                        return conn.Query<SonFunctionDto>("select * from sonfunction where SonFunctionId=@Id",p,commandType: CommandType.Text, commandTimeout: 0).FirstOrDefault();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+               
+            }
+
         }
         //角色权限管理
         public static class RoleFunction
@@ -895,27 +906,45 @@ namespace WebApplication1.Models
             //新增
             public static int insert(RoleFunctionDto model)
             {
+                string fatherId = "";
                 using (IDbConnection conn = MySqlConnection())
                 {
                     int result = 0;
                     IDbTransaction transaction = conn.BeginTransaction();
                     try
                     {
-                        if (!string.IsNullOrWhiteSpace(model.FunctionID))
+                        if (!model.RoleId.IsNullOrEmpty())
                         {
-                            foreach (var rid in model.FunctionID.Split(','))
+                            delete(model.RoleId);
+                            if (!string.IsNullOrWhiteSpace(model.FunctionID))
                             {
-                                if (!string.IsNullOrWhiteSpace(rid))
+                                foreach (var rid in model.FunctionID.Split(','))
                                 {
-                                    conn.Execute("Insert into rolefunction values (@RoleId,@FunctionId)",new RoleFunctionDto
+                                    if (!string.IsNullOrWhiteSpace(rid))
                                     {
-                                           
-                                    });
-                                    //RoleUser.Insert(});
+                                        if (rid.Length > 1)
+                                        {
+                                            if(SonFunction.GetById(rid).FatherId!= fatherId){
+                                                conn.Execute("Insert into rolefunction values (@RoleId,@FunctionId)", new RoleFunctionDto
+                                                {
+                                                    RoleId = model.RoleId,
+                                                    FunctionID = SonFunction.GetById(rid).FatherId
+                                                });
+                                                fatherId = SonFunction.GetById(rid).FatherId;
+                                            }
+                                            
+                                        }
+
+                                        conn.Execute("Insert into rolefunction values (@RoleId,@FunctionId)", new RoleFunctionDto
+                                        {
+                                            RoleId = model.RoleId,
+                                            FunctionID = rid
+                                        });
+                                        //RoleUser.Insert(});
+                                    }
                                 }
                             }
                         }
-
                         transaction.Commit();
                     }
                     catch (Exception ex)
@@ -928,13 +957,48 @@ namespace WebApplication1.Models
             }
 
             //删除
-            public static List<RoleFunctionDto> delete()
+            public static int delete(string id)
             {
                 using (IDbConnection conn = MySqlConnection())
                 {
-                    return conn.Query<RoleFunctionDto>("select * from rolefunction", commandType: CommandType.Text, commandTimeout: 0).ToList();
+                    var p = new DynamicParameters();
+                    p.Add("@Id", id);
+                    return conn.Execute("delete from rolefunction where RoleId=@Id", p);
+                   
                 }
             }
+        }
+        public static class SysUser
+        {
+            //获取当前用户
+            public static SysUserDto GetById(string Id)
+            {
+                using (IDbConnection conn = MySqlConnection())
+                {
+                    var p = new DynamicParameters();
+                    p.Add("@Id", Id);
+                    return conn.Query<SysUserDto>("select* from sysuser where Id=@Id", p, commandType: CommandType.Text,
+                        commandTimeout: 0).FirstOrDefault();
+                }
+            }
+
+            public static int ChangePassword(string  uid, string password)
+            {
+                using (IDbConnection conn = MySqlConnection())
+                {
+                    SysUserDto item = GetById(uid);
+                    item.Password = password;
+                    UsersDto user=new UsersDto(){Name = item.Name, Enable = item.Enable, Id = item.Id, Password = item.Password, LoginName = item.LoginName, Phone = item.Phone};
+               
+
+
+                    return conn.Execute(
+                        "update sysuser set Id=@Id,LoginName=@LoginName,Password=@Password,Name=@Name,Phone=@Phone,Enable=@Enable where Id=@Id",
+                        user); 
+                }
+               
+            }
+
         }
     }
 }

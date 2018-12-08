@@ -18,7 +18,7 @@ namespace System
             else
             {
                 int len = MenuId.Length;
-                if (len == 3)
+                if (len == 1)
                 {
                     return !string.IsNullOrEmpty(user.Menus.Where(p => p.Substring(0, len).Equals(MenuId)).FirstOrDefault());
                 }

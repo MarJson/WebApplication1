@@ -20,16 +20,9 @@
 
     <link href="~/Content/Simplify/css/font-awesome.css" rel="stylesheet" />
     <!-- ionicons -->
-
     <link href="~/Content/Simplify/css/ionicons.min.css" rel="stylesheet" />
     <!-- Simplify -->
-
     <link href="~/Content/Simplify/css/simplify.min.css" rel="stylesheet" />
-    <!-- Le javascript
-       ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- Jquery -->
-
     <script src="~/Content/Simplify/js/jquery-1.11.1.min.js"></script>
     <!-- Bootstrap -->
   
@@ -231,7 +224,7 @@
                 $activeWidget.removeClass('widget-red');
                 $activeWidget.removeClass('widget-purple');
 
-                if ($selectedColor != 'reset')
+                if ($selectedColor !== 'reset')
                     $activeWidget.addClass($selectedColor);
 
                 return false;
@@ -308,8 +301,8 @@
     <div class="wrapper preload">
         <!-- sidebar-right -->
         @Html.Action("Head", "Home")
-
-        @Html.Partial("Menu")
+        @Html.Action("Menu", "Home")
+       @*@Html.Partial("Menu")*@
 
         <div class="main-container">
             <div class="padding-md">

@@ -58,7 +58,6 @@ namespace WebApplication1.Controllers
                         //roles.Clear();
                         roleid.ForEach(p4 =>
                             {
-
                                 roles.Add(SqlHelp.GetRoles().Where(p5=>p5.Id.Equals(p4)).FirstOrDefault());
                             }
 

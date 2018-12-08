@@ -238,6 +238,7 @@
     <Compile Include="Common\CommonHelp.cs" />
     <Compile Include="Controllers\AssemblyDetailController.cs" />
     <Compile Include="Controllers\AssemblySearchController.cs" />
+    <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\ChartShowController.cs" />
     <Compile Include="Controllers\GetPartByDateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -253,13 +254,20 @@
     <Compile Include="Controllers\ThroughRateController.cs" />
     <Compile Include="Controllers\ToExecelController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
+    <Compile Include="Filters\ActionCodeAttribute.cs" />
+    <Compile Include="Filters\FriendlyNameAttribute.cs" />
+    <Compile Include="Filters\SigninAttribute.cs" />
     <Compile Include="Filters\SingninAttribute.cs" />
+    <Compile Include="Filters\UserAuthAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helps\ConfigHelper.cs" />
     <Compile Include="Helps\FileHelp.cs" />
+    <Compile Include="Helps\FunctionHelper.cs" />
     <Compile Include="Helps\HtmlHelp.cs" />
+    <Compile Include="Helps\MenuHelper.cs" />
+    <Compile Include="Helps\PermissionHelper.cs" />
     <Compile Include="Helps\UploadHelper.cs" />
     <Compile Include="Helps\UserHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -284,6 +292,7 @@
     <Compile Include="Model\Dto\ChartDataDto.cs" />
     <Compile Include="Model\Dto\FunctionDto.cs" />
     <Compile Include="Model\Dto\FunctionSimpleInfo.cs" />
+    <Compile Include="Model\Dto\LoginUser.cs" />
     <Compile Include="Model\Dto\PartDataDto.cs" />
     <Compile Include="Model\Dto\PartDetailToExcelDto.cs" />
     <Compile Include="Model\Dto\PartToExcelDto.cs" />
@@ -291,6 +300,7 @@
     <Compile Include="Model\Dto\ResAllRateDto.cs" />
     <Compile Include="Model\Dto\ResAssemblyBarCode.cs" />
     <Compile Include="Model\Dto\ResAssemblyRateDto.cs" />
+    <Compile Include="Model\Dto\ResFunctionDto.cs" />
     <Compile Include="Model\Dto\ResIndexDto.cs" />
     <Compile Include="Model\Dto\ResNeedDeleyDto.cs" />
     <Compile Include="Model\Dto\ResNeedDeleyListDto.cs" />
@@ -303,6 +313,7 @@
     <Compile Include="Model\Dto\RoleFunctionDto.cs" />
     <Compile Include="Model\Dto\RolesDto.cs" />
     <Compile Include="Model\Dto\SonFunctionDto.cs" />
+    <Compile Include="Model\Dto\SysUserDto.cs" />
     <Compile Include="Model\Dto\ThroughRateDto.cs" />
     <Compile Include="Model\Dto\TorqToExcelDto.cs" />
     <Compile Include="Model\Dto\UserDto.cs" />
@@ -515,6 +526,10 @@
     <Content Include="Content\Simplify\scss\_stacked.scss" />
     <Content Include="Content\Simplify\scss\_variables.scss" />
     <Content Include="Images\1.icon" />
+    <Content Include="Content\Simplify\fonts\1Ptrg8zYS_SKggPNwJYtWqZPAA.woff2" />
+    <Content Include="Content\Simplify\fonts\1Ptug8zYS_SKggPNyCMIT5lu.woff2" />
+    <Content Include="Content\Simplify\fonts\1Ptug8zYS_SKggPNyC0ITw.woff2" />
+    <Content Include="Content\Simplify\fonts\1Ptrg8zYS_SKggPNwN4rWqhPAMif.woff2" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <Content Include="Scripts\confidence-band.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -558,8 +573,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -597,14 +610,13 @@
     <Content Include="Views\SelectCheck\fcjQueryChart.cshtml" />
     <Content Include="Views\SelectCheck\hqQueryChart.cshtml" />
     <Content Include="Views\SelectCheck\qxQueryChart.cshtml" />
-    <Content Include="Views\Home\Preview.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\SelectInfoNew\ByCode.cshtml" />
     <Content Include="Views\SelectInfoNew\ByCodePary.cshtml" />
     <Content Include="Views\SelectInfoNew\ByDataPary.cshtml" />
     <Content Include="Views\SelectInfoNew\IndexNew.cshtml" />
     <Content Include="Views\ChartShow\Index.cshtml" />
-    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Shared\eeenu.cshtml" />
     <Content Include="Views\AssemblyDetail\Index.cshtml" />
     <Content Include="Views\InverseQuery\Index.cshtml" />
     <Content Include="Views\QCSelect\Index.cshtml" />
@@ -625,6 +637,8 @@
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Power\Index.cshtml" />
+    <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\ChangePassword\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

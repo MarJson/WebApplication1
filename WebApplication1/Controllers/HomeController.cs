@@ -14,6 +14,8 @@ using WebApplication1.Filters;
 using WebApplication1.Model;
 using WebApplication1.Model.Dto;
 using WebApplication1.Models;
+using Zhongyu.Data.Extensions;
+using static WebApplication1.Models.DapperService;
 
 namespace WebApplication1.Controllers
 {
@@ -40,34 +42,43 @@ namespace WebApplication1.Controllers
             using (IDbConnection conn = DapperService.MySqlConnection())
             {
                 var list = conn.Query<AreaDto>("SP_Area_QueryList", commandType: CommandType.StoredProcedure).ToList();
-                CommonHelp.list = list;//
-               // Session["lines"] = list;
+                CommonHelp.list = list;
+              
                 ViewBag.date = DateTime.Now;
           
             }
-
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "GCTH 信息查询系统.";
-
-            return View();
-        }
+       
         public PartialViewResult Head()
         {
             return PartialView();
         }
-        public ActionResult Contact()
+        public PartialViewResult Menu()
         {
-            ViewBag.Message = "联系方式.";
-
-            return View();
+            List<ResFunctionDto> function = new List<ResFunctionDto>();
+            function = DapperService.Function.GetFunction().ToList();
+            function.ForEach(p =>
+                {
+                    List<SonFunctionDto> son = new List<SonFunctionDto>();
+                    if (!p.SonFionctionId.IsNullOrEmpty())
+                    {
+                        foreach (var sonid in p.SonFionctionId.Split(','))
+                        {
+                            if (!string.IsNullOrWhiteSpace(sonid))
+                            {
+                                son.Add(SonFunction.GetById(sonid));
+                            }
+                        }
+                    }
+                    p.SonFunction = son;
+                }
+            );
+            return PartialView(function);
         }
-
         /// <summary>
-        ///     下載PDF檔案
+        ///     下载pdf
         /// </summary>
         /// <returns></returns>
         public ActionResult DownloadPdf()
@@ -80,7 +91,7 @@ namespace WebApplication1.Controllers
         }
         /// <summary>
         ///     <param name="htmlText"></param>
-        ///     將Html文字 輸出到PDF檔裡
+        ///     將Html文字輸出到PDF檔裡  
         /// </summary>
         /// <returns></returns>
         public byte[] ConvertHtmlTextToPDF(string htmlText)
@@ -207,7 +218,6 @@ namespace WebApplication1.Controllers
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
             cell.Colspan = 2;
             table1.AddCell(cell);
-
             para = new Paragraph("SN内容", font);
             cell = new PdfPCell(para);
             cell.MinimumHeight = 17;
@@ -215,7 +225,6 @@ namespace WebApplication1.Controllers
             cell.VerticalAlignment = Element.ALIGN_MIDDLE;
             cell.Colspan = 10;
             table1.AddCell(cell);
-
             para = new Paragraph("出厂编号", font);
             cell = new PdfPCell(para);
             cell.MinimumHeight = 17;

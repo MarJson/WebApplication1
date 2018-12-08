@@ -176,7 +176,7 @@ $(function	()	{
 		$activeWidget.removeClass('widget-red');
 		$activeWidget.removeClass('widget-purple');
 
-		if($selectedColor != 'reset')
+		if($selectedColor !== 'reset')
 			$activeWidget.addClass($selectedColor);
 		
 		return false;
@@ -204,8 +204,7 @@ $(function	()	{
 
 	//Scroll to Top
 	$(".scroll-to-top").click(function()	{
-		$("html, body").animate({ scrollTop: 0 }, 600);
-		 return false;
+        $("html, body").animate({ scrollTop: 0 }, 600);return false;
 	});
 
 	// Popover
@@ -235,14 +234,8 @@ $(window).load(function() {
 });
 
 // Toggle Scroll to Top button
-$(window).scroll(function(){
-		
-	 var position = $(window).scrollTop();
-	
-	 if(position >= 200)	{
-		$('.scroll-to-top').addClass('active')
-	 }
-	 else	{
-		$('.scroll-to-top').removeClass('active')
-	 }
+$(window).scroll(function () {
+    var position = $(window).scrollTop();
+    if (position >= 200) {$('.scroll-to-top').addClass('active');}
+	else {$('.scroll-to-top').removeClass('active');}
 });

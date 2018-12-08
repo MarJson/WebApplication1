@@ -5,11 +5,26 @@ using System.Web;
 
 namespace System
 {
+    //public class SigninUser
+    //{
+    //    public Guid userId { get; set; }
+
+    //    public string userName { get; set; }
+    //}
     public class SigninUser
     {
-        public Guid userId { get; set; }
+        public SigninUser()
+        {
+            RoleId = new List<string>();
+            Menus = new List<string>();
+        }
+        public string userId { get; set; }
 
         public string userName { get; set; }
+
+        public List<string> RoleId { get; set; }
+
+        public List<string> Menus { get; set; }
     }
 
     public class UserHelper
@@ -21,9 +36,9 @@ namespace System
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="userRoles"></param>
-        public static void SetSigninUser(Guid userId, string userName)
+        public static void SetSigninUser(string userId, string uname, List<string> RoleId, List<string> Menus)
         {
-            SigninUser luser = new SigninUser() { userId = userId, userName = userName };
+            SigninUser luser = new SigninUser() { userId = userId, userName = uname, RoleId = RoleId, Menus = Menus };
 
             HttpContext.Current.Session[sessionName] = luser;
         }

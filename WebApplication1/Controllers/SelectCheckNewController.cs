@@ -900,7 +900,6 @@ namespace WebApplication1.Controllers
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
                         cell.VerticalAlignment = Element.ALIGN_MIDDLE;
                         table1.AddCell(cell);
-
                         para = new Paragraph(dt.Rows[index]["CarType"].ToString() + dt.Rows[index]["Order_Nut_Name"].ToString(), font);
                         cell = new PdfPCell(para);
                         cell.MinimumHeight = 17;
@@ -997,7 +996,7 @@ namespace WebApplication1.Controllers
             doc.Close();
             msInput.Close();
             outputStream.Close();
-            //回傳PDF檔案 
+            // 
             return outputStream.ToArray();
 
         }

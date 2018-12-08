@@ -13,7 +13,7 @@ namespace System.Web
         private string _namespace;
         private string _actionName;
         private string _controllerName;
-        private Guid[] _roleId;
+        private string[] _roleId;
 
         #region IAuthorizationFilter Members
 

@@ -27,17 +27,8 @@
     <div id="container3" style="bmoz-box-shadow: 2px 2px 5px #333333; background: #ffffff; box-shadow: 2px 2px 5px #333333; margin: 0 auto; margin: 0 auto; webkit-box-shadow: 2px 2px 5px #333333; height: 200px"></div>
     <br/>
     <div id="container5" style="bmoz-box-shadow: 2px 2px 5px #333333; background: #ffffff; box-shadow: 2px 2px 5px #333333; margin: 0 auto; margin: 0 auto; webkit-box-shadow: 2px 2px 5px #333333; height: 200px"></div>
-    
-    @*<div id="container6" style=" width: 95%;bmoz-box-shadow: 2px 2px 5px #333333; box-shadow: 2px 2px 5px #333333; margin: 0 auto; margin: 0 auto; webkit-box-shadow: 2px 2px 5px #333333;height:15%"></div>
-    
-    <div id="container2" style="width: 95%;bmoz-box-shadow: 2px 2px 5px #333333; box-shadow: 2px 2px 5px #333333; margin: 0 auto; margin: 0 auto; webkit-box-shadow: 2px 2px 5px #333333;height: 15%"></div>
-    
-    <div id="container4" style="width: 95%;bmoz-box-shadow: 2px 2px 5px #333333; box-shadow: 2px 2px 5px #333333; margin: 0 auto; margin: 0 auto; webkit-box-shadow: 2px 2px 5px #333333;height: 15%"></div>*@
-
-
-
-
-
+    <br/>
+    <div id="container6" style="bmoz-box-shadow: 2px 2px 5px #333333; background: #ffffff; box-shadow: 2px 2px 5px #333333; margin: 0 auto; margin: 0 auto; webkit-box-shadow: 2px 2px 5px #333333; height: 200px"></div>
 <script src="~/Content/js/jquery.js"></script>
 <script src="~/Scripts/echarts .js"></script>
 <script type="text/javascript">
@@ -208,18 +199,13 @@
 </script>
 <script>
     $(function () {
-        //chart();
-        chart(1, "SubFram", "GEM-副车架", "container1");
-        //chart(1, "RearAngle_BEV", "BEV后角", "container2");
-        chart(1, "RearAxle", "GEM-后桥", "container3");
-        //chart(1, "RearAxle_BEV", "BEV后桥", "container4");
-        chart(1, "Suspension", "GEM-前悬", "container5");
-        //chart(1, "Suspension_PQ24", "前悬 PQ24(A0)", "container6");
-        @*chart(@res1, "container1","BEV后角");
-        chart(@res2, "container2","后桥-四线并两线");
-        chart(@res3, "container3", "BEV后桥");
-        chart(@res3, "container4", "副车架-四线并两线");
-        chart(@res5, "container5","前悬 Lavida");
-        chart(@res6, "container6","前悬 PQ24(A0)");*@
+       
+        chart(1, "SubFram", "D2UC-副车架", "container1");
+     
+        chart(1, "RearAxle", "D2UC-后桥", "container3");
+      
+        chart(1, "Suspension", "D2UC-前悬", "container5");
+        chart(1, "RearAngle", "D2UC-后角", "container6");
+  
     });
 </script>
